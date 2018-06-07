@@ -1,0 +1,247 @@
+{%extends 'base/base.html'%}
+
+
+
+{%block content%}
+      <div class="content">
+          {% if clave %}
+          <div class="container">
+            <div class="col-sm-12 ">
+            <div class="alert alert-danger">
+            <span>El radio <b> {{clave}} </b> ya existe.</span>
+            </div>
+            </div>
+          </div>
+          {% endif %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+            <div class="col-md-12">
+              <form method="post" action="{%url 'add_radio'%}" class="form-horizontal">{% csrf_token %}
+              <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                  <div class="card-text">
+
+                    <h4 class="card-title">Agregar Radios</h4>
+                  </div>
+                </div>
+                <div class="card-body ">
+                  
+                    <div class="row">
+                      <input type="hidden" value="{{radio.id}}" name="id">
+                      <label class="col-sm-2 col-form-label">Radio ID</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="radio_id" name="radio_id"  value="{{radio.clave}}" required>
+                          <p style="display:none;"  class="text-danger" id="existe">El Radio ID ya existe</p>
+
+                 
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Tag del Radio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="tag_radio" name="tag_radio" value="{{radio.tag_radio}}" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Modelo del Radio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="modelo" name="modelo" value="{{radio.modelo}}" required>
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Version FW de Radio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="version_fw" name="version_fw" value="{{radio.version_fw}}" required>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row">
+                      <label class="col-sm-2 col-form-label">Protocolo de Radio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="protocolo" name="protocolo" value="{{radio.protocolo}}" required>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+              <div class="card ">
+  <div class="card-header card-header-rose card-header-text">
+                  <div class="card-text">
+
+                    <h4 class="card-title">Direccion</h4>
+                  </div>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Calle</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="calle" name="calle"  value="{{radio.direccion.calle}}"required >
+                 
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Numero</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="number" class="form-control" id="numero" name="numero" value="{{radio.direccion.numero}}" required>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Colonia</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="colonia" name="colonia" value="{{radio.direccion.colonia}}"required>
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Codigo Postal</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text"  minlength="5" maxlength="5"  pattern="0[1-9][0-9]{3}|[1-4][0-9]{4}|5[0-2][0-9]{3}" title="Ingresa un Codigo Postal correcto" 
+                          class="form-control" id="codigo_postal" name="codigo_postal"
+                          value="{{radio.direccion.codigo_postal}}"required>
+                          <p style="display:none;"  class="text-danger" id="cpvalido">El Codigo postal no es valido</p>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row">
+                      <label class="col-sm-2 col-form-label">Estado</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                              <select name="estados" id="s_estados" class="form-control" required>
+                                <option value="null" selected="true" disabled="disabled">Seleccionar estado</option>
+                                {% for estado in estados  %}
+                                  <option value="{{estado.0}}" {% if estado.0 == radio.direccion.municipio.estado%} selected="true" {% endif %}>{{estado.1}}</option>
+                                {% endfor %}
+                              </select>
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Municipio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                           <select name="municipio" id="s_municipios" class="form-control" required>
+                             <option  value="{{radio.municipio.nombre}}"selected></option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Longitud</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="longitud" name="longitud" value="{{radio.direccion.longitud}}" required>
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Latitud</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="latitud" name="latitud" value="{{radio.direccion.latitud}}" required>
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-md-3 ml-auto">
+                    <input id="tipob" type="submit" value="Guardar" class="btn btn-success"></div>
+                   </div>
+                  
+
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+ {%endblock%}
+{%block scripts%}
+  <script>
+    $(function() {
+      if ($('#s_estados').val() != null) {
+         get_municipios($('#s_estados').val()); 
+      }
+        
+        $('#s_estados').change(function(event) {
+          var estado = $(this).val();
+         get_municipios(estado);         
+        });
+        $("#radio_id").focusout(function(event) {
+             validar_clave($(this).val());
+        });
+  
+    });
+    function validar_clave(clave){
+      $.ajax({
+        url: '/api/radio/'+clave,
+      })
+      .done(function() {
+        console.log("success");
+
+        $('#existe').css("display", "block");
+          
+      })
+      .fail(function() {
+        console.log("error");
+        $('#existe').css("display", "none");
+      });
+      
+    }
+    function get_municipios(estado){
+       $.ajax({
+            url: '/api/municipio/'+estado,
+          })
+          .done(function(data) {
+            console.log(data);
+            add_municipios(data);
+          })
+          .fail(function() {
+            console.log("error32");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+    }
+
+    function add_municipios(data){
+      $('#s_municipios').find('option').remove().end().append('<option value="" selected="true" disabled="disabled">Seleccionar municipio</option>');
+      $.each(data, function(index, val) {
+        {% if radio.direccion.municipio_id %}
+          if (val.id == {{radio.direccion.municipio_id}}) {
+            $('#s_municipios').append($('<option>', {
+              value: val.id,
+              text: val.nombre,
+              selected:true
+          }));
+          } else{
+            $('#s_municipios').append($('<option>', {
+              value: val.id,
+              text: val.nombre
+            }));
+          }
+        {%else%}
+         $('#s_municipios').append($('<option>', {
+            value: val.id,
+            text: val.nombre
+        }));
+        {% endif %}
+      });
+    }
+
+   
+
+
+
+
+  </script>
+{%endblock scripts%}

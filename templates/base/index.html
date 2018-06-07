@@ -1,0 +1,209 @@
+{%extends 'base/base.html'%}
+
+{% load staticfiles %}
+
+
+  {%block encabezado%}Material Dashboard{%endblock%}
+  {%block content%}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-chart">
+                <div class="card-header card-header-rose" data-header-animation="true">
+                   <div class="ct-chart" id="websiteViewsChart"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                            <i class="material-icons">build</i> Fix Header!
+                        </button>
+                        <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                            <i class="material-icons">edit</i>
+                        </button>
+                    </div>
+                    <h4 class="card-title">Ordenes Servicio Abiertas</h4>
+                        <p class="card-category">Performance de OS</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                         <i class="material-icons">access_time</i> Mes actual
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card card-chart">
+                <div class="card-header card-header-success" data-header-animation="true">
+                    <div class="ct-chart" id="dailySalesChart"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                            <i class="material-icons">build</i> Fix Header!
+                        </button>
+                         <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                            <i class="material-icons">edit</i>
+                        </button>
+                    </div>
+                        <h4 class="card-title">Orde de Servicio Ejecutadas</h4>
+                        <p class="card-category">
+                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> Incremento en Ejecucion</p>
+                </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons">access_time</i> Actualizado hace 5 minutos.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="card card-chart">
+                            <div class="card-header card-header-info" data-header-animation="true">
+                              <div class="ct-chart" id="completedTasksChart"></div>
+                            </div>
+                            <div class="card-body">
+                              <div class="card-actions">
+                                <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                                  <i class="material-icons">build</i> Fix Header!
+                                </button>
+                                <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                                  <i class="material-icons">refresh</i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                              </div>
+                              <h4 class="card-title">Unidades Abiertas</h4>
+                              <p class="card-category">Performance Unidades Activas</p>
+                            </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons">access_time</i> Desde hace 90 dias.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="card card-stats">
+                            <div class="card-header card-header-warning card-header-icon">
+                              <div class="card-icon">
+                                <i class="material-icons">battery_full</i>
+                              </div>
+                              <p class="card-category">Consumo</p>
+                              <h3 class="card-title">184</h3>
+                            </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons text-danger">warning</i>
+                                <a href="#pablo">Al 80% de la capacidad</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="card card-stats">
+                            <div class="card-header card-header-rose card-header-icon">
+                              <div class="card-icon">
+                                <i class="material-icons">equalizer</i>
+                              </div>
+                              <p class="card-category">Radios Instalados</p>
+                              <h3 class="card-title">175</h3>
+                            </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons">local_offer</i>Activos en la base de datos
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="card card-stats">
+                            <div class="card-header card-header-success card-header-icon">
+                              <div class="card-icon">
+                                <i class="material-icons">store</i>
+                              </div>
+                              <p class="card-category">Os Dia</p>
+                              <h3 class="card-title">10</h3>
+                            </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons">date_range</i>Ultimas 24 horas
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                          <div class="card card-stats">
+                            <div class="card-header card-header-info card-header-icon">
+                              <div class="card-icon">
+                                <i class="fa fa-users"></i>
+                              </div>
+                              <p class="card-category">Usuarios Activos</p>
+                              <h3 class="card-title">+245</h3>
+                            </div>
+                            <div class="card-footer">
+                              <div class="stats">
+                                <i class="material-icons">update</i> Recien Actualizados
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                        </div>
+                 
+
+  {%endblock%}
+
+  {%block scripts%}
+    <script>
+      $(document).ready(function() {
+
+      //init wizard
+
+      demo.initMaterialWizard();
+      /*label = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+      series =  [
+                    [12, 17, 7, 17, 23, 18, 15]
+                ]*/
+      label = [
+        {% for g in grafica  %}
+          '{{g.dias}}',
+        {% endfor %}
+      ];
+      series =  [[
+        {% for g in grafica  %}
+          {{g.registro}},
+        {% endfor %}
+      ]];
+      // Javascript method's body can be found in assets/js/demos.js
+      var cont= 0;
+      $.each(series, function(index, val) {
+        $.each(val, function(i, el) {
+          if (cont<el) {
+            cont = el;
+          }
+          console.log(cont);
+          console.log(el);
+           /* iterate through array or object */
+        });
+      });
+         // console.log(cont);
+
+      demo.initDashboardPageCharts(label,series,cont+cont/4);
+
+      demo.initCharts();
+
+    });
+    </script>
+  {%endblock%}

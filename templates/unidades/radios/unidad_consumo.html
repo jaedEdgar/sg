@@ -1,0 +1,43 @@
+
+{%block content%}
+                  <!-- Classic Modal -->
+      <div class="modal fade" id="modal_unidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Asignar Unidad de consumo  </h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{%url 'add_unidadConsumo'%}" class="form-horizontal">{% csrf_token %}
+       	    	  <label class="label-control " >Radio ID: <strong id="radio_clave" name="radio"></strong></label>
+			       <div class="row">
+             <input type="hidden" value="{{radio.id}}" name="radio_id" id="radio_id">
+             <label class="col-sm-2 col-form-label">Clave de Unidad de consumo</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="unidad_consumo" name="unidad_consumo"  value="" autocomplete="off">
+                </div>
+              </div>
+              </form>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Tag de unidad de consumo</label>
+              <div class="col-sm-10">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="tag_unidad_consumo" name="tag_unidad_consumo" value="{{radio.tag_unidad_consumo}}">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 ml-auto">
+	            <div class="modal-footer">
+	              <input id="tipob" type="submit" value="Guardar" class="btn btn-success">
+	              <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button></div>
+	            </div>
+	          </div>
+	          
+	        </div>
+	      </div>
+	      <!--  End Modal -->
+{%endblock%}

@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title%}{%endblock%}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="imagenes/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans">
+    <link rel="stylesheet" href="{%static '/css/style.css'%}">
+      {%block head%}{%endblock%}
+  <body>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <aside id="sidebar">
+            <h2 class="title-sidebar">Sistema de Gestión</h2>
+          <ul id="sidemenu" class="sidebar-nav">
+             <li><a href=""><span class="sidebar-icon"><i class="fa fa-history"></i></span><span class="sidebar-title">Dashboard</span></a></li>            
+            <li>
+              <a  href="{%url 'home'%}">
+                <span class="sidebar-icon"><i class="fa fa-list-alt"></i></span>
+                <span class="sidebar-title">Lista de Usuarios</span>
+              </a>
+            </li>
+            <li><a data-toggle="collapse" href="#submenu-2" class="accordion-toggle collapsed toggle-switch"><span class="sidebar-icon"><i class="fa fa-th"></i></span><span class="sidebar-title">Rel Unidades</span></a>
+
+            </li>
+         
+             <li><a href=""><span class="sidebar-icon"><i class="fa fa-history"></i></span><span class="sidebar-title">Medidores</span></a></li>
+  
+          </ul>
+        </aside>
+      </div>
+      <main id="page-content-wrapper" role="main">
+        {%include 'base/navbar.html'%}
+        <!-- <div class="title-header">{%block encabezado%} {%endblock%}</strong></div> -->
+        <div class="container-fluid">
+          {%block content%}{%endblock%}
+        </div>
+      </main>
+    </div>
+    
+    <script src="{%static '/js/jquery-2.1.4.min.js'%}"></script>
+    <script src="{%static '/js/bootstrap-3.1.1.min.js'%}"></script>
+    <script src="{%static '/js/main.js'%}"></script>
+   {%block scripts%}{%endblock%}
+  </body>
+</html>

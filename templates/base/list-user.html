@@ -1,0 +1,108 @@
+{%extends 'base/base.html'%}
+{%block head%}
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css ">
+  {%endblock%}
+  {%block encabezado%}Listado de Usuarios{%endblock%}
+  {%block content%}
+        <div class="container-fluid">
+          {% csrf_token %}
+          <div class="panel panel-default">
+             <div class="panel-heading" style="overflow:hidden;">
+                <h3 class="panel-title" style="padding-top:5px;">Listado de  Usuarios</h3>
+                <a href="{%url 'add_user' %}" style="margin-top:-25px;" class="btn btn-primary pull-right btn-sm"><i class="fa fa-plus-circle"></i> Agregar Usuario</a>
+              </div>
+          <div class="panel-body">
+          <div class="btn-control">
+          <table id="myTable" class="display table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+            {%for usuario in usuarios%}
+              <tr >
+                <td><a href="{%url 'edit_user' pk=usuario.id%}">{{usuario.username}}</a></td>
+                <td>{{usuario.first_name}}</td>
+                <td>{{usuario.email}}</td>
+                <td> {% if usuario.is_superuser %}Administrador{% else %}Operador{% endif %} </td>
+             
+              </tr>      
+            {%endfor%}
+            </tbody>
+          </table>
+
+            </div>
+          </div>
+        </div>
+    {%endblock%}
+    {%block scripts%}
+
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js "></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js "></script>
+    <script>
+      var token = $('[name="csrfmiddlewaretoken"]').val();
+      $(document).ready( function () {
+
+          $('input[type="checkbox"]').change(function(event) {
+              if($(this).is(':checked')){
+                userActive(1, $(this).val());
+              } else{
+                userActive(0,$(this).val());
+              }
+          });
+
+      /*  $('#myTable').DataTable(
+      		{
+            "bSort": true,
+              columnDefs: [{
+              orderable: false,
+              targets: "no-sort"
+            }],
+      		 "language": {
+      		 	"search": "Buscar: ",
+      			"lengthMenu": "Mostrar _MENU_ ",
+      			"zeroRecords": "Nothing found - sorry",
+      			"info": "Pagina _PAGE_ de _PAGES_",
+      			"infoEmpty": "No records available",
+      			"infoFiltered": "(filtered from _MAX_ total records)",
+      			"paginate": {
+      				"first":      "Primera",
+      				"last":       "Ultima",
+      				"next":       "Siguiente",
+      				"previous":   "Anterior"
+      	    		},
+      			}
+      		}
+      	);
+      });*/
+       function userActive(active,id){
+        $.ajax({
+          url: '',
+          type: 'PUT',
+          data: {is_active: active, id:id},
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRFToken', token);
+          },
+        })
+        .done(function(data) {
+          console.log(data);
+        })
+        .fail(function(data) {
+          console.log(data);
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+      }
+    </script>
+  {%endblock%}

@@ -1,0 +1,53 @@
+{%extends 'base/base.html'%}
+{%block head%}
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css ">
+{%endblock%}
+
+  {%block encabezado%}Material Dashboard{%endblock%}
+  {%block content%}
+  
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" data-background-color="green">
+                                    <h4 class="title">Usuarios</h4>
+                                    <p class="category">Lista de usuarios registrados</p>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table">
+                                        <thead class="text-dark">
+                                            <th>Usuario</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Tipo</th>
+                                        </thead>
+                                        <tbody>
+                                    {%for usuario in usuarios%}
+                                        <tr>
+                                            <td><a href="{%url 'edit_user' pk=usuario.id%}">{{usuario.username}}</a></td>
+                                            <td>{{usuario.first_name}}</td>
+                                            <td>{{usuario.email}}</td>
+                                            <td> {% if usuario.is_superuser %}Administrador{% else %}Operador{% endif %} </td>
+                                        </tr>
+                                    {%endfor%}
+                                        </tbody>
+                                     
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <a href="{%url 'add_user' %}" class="btn btn-success pull-right">Agregar</a>
+                             <div class="col-md-4">
+
+                                        
+                                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+{%endblock%}

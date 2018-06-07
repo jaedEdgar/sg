@@ -1,0 +1,79 @@
+{%extends 'base/base.html'%}
+{%block head%}
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css ">
+{%endblock%}
+
+{%block encabezado%}Material Dashboard{%endblock%}
+{%block content%}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="purple">
+                            <h4 class="title">Editar Perfil de usuario</h4>
+                            <p class="category">Completa el perfil</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                        <div class="col-md-6">
+                            <form action="{%url 'add_user'%}" method="post" >{% csrf_token %}
+                                <div class="form-group label-floating">
+                                <input type="hidden" value="{{usuario.id}}" name="id">
+                                
+                                <label class="control-label">Usuario</label>
+                                <input  id="usuario" name="usuario"  value="{{usuario.username}}" autocomplete="off" type="text" class="form-control">
+                                </div>
+                                           
+                        </div>
+
+                       <div class="col-md-6">
+                         <div class="form-group label-floating">
+                            <label class="control-label">Clave</label>
+                            <input id="password" class="form-control" name="password" type="password" autocomplete="off" /></div></div> </div>
+                                       
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                <label class="control-label">Nombre</label>
+                                <input id="nombre" class="form-control" name="nombre" type="text" value="{{usuario.first_name}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Apellidos</label>
+                                    <input  id="apellidos"class="form-control" name="apellidos" type="text" value="{{usuario.last_name}}" />
+                                </div>
+                            </div>
+                            
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Correo Electronico</label>
+                                    <input id="email"  class="form-control"  name="email" type="email" value="{{usuario.email}}" />
+                                </div>
+                            </div>
+                        </div>
+            <div class="card-content">
+            
+                <label for="tipoa">Tipo de Usuario</label><br>
+                <input id="tipoa" type="radio" name="tipo" value="1" {% if usuario.is_superuser %} checked {% endif %}/> Administrador<br>
+                <input type="radio" name="tipo" value="0" {% if usuario %}{% if not usuario.is_superuser %} checked {% endif %} {% endif %} /> Operador<br>
+            </div>
+        {% if usuario %}
+              <a href="{%url 'delete_user' pk=usuario.id%}"  class="btn  btn-danger pull-right">Eliminar</a>
+        {% endif %}
+            <input id="tipob" type="submit" value="Guardar" class="btn btn-primary pull-right">
+            <div class="clearfix"></div>
+        </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+ {%endblock%}

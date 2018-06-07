@@ -1,0 +1,89 @@
+{%extends 'base/base.html'%}
+{%block content%}
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+
+            <div class="col-md-12">
+              <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                  <div class="card-text">
+                    <h4 class="card-title">Agregar Usuario</h4>
+                  </div>
+                </div>
+                <div class="card-body ">
+                  <form method="post" action="{%url 'add_user'%}" class="form-horizontal">{% csrf_token %}
+                    <div class="row">
+                      <input type="hidden" value="{{usuario.id}}" name="id">
+                      <label class="col-sm-2 col-form-label">Nombre de Usuario</label>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="usuario" name="usuario"  value="{{usuario.username}}" autocomplete="off">
+                          
+                          <span class="bmd-help">A block of help text that breaks onto a new line.</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Contraseña</label>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                          <input type="password" class="form-control" id="password" name="password" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Nombre</label>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="nombre" name="nombre" value="{{usuario.first_name}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Apellidos</label>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="apellidos"  name="apellidos"  value="{{usuario.last_name}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Correo Electronico</label>
+                      <div class="col-sm-10">
+                        <div class="form-group">
+                          <input type="email" class="form-control"  id="email"  name="email"  value="{{usuario.email}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label class="col-sm-2 col-form-label">Tipo de Usuario</label>
+                          <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" id="tipoa" type="radio" name="tipo" value="1" checked
+                             {% if usuario.is_superusers %} checked {% endif %}>Administrador
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                          <label class="form-check-label"></label>
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="tipo" value="0" {% if usuario.is_superusers %} checked {% endif %}> Operador
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+
+                
+
+                    <div class="col-md-3 ml-auto">
+                    <input id="tipob" type="submit" value="Guardar" class="btn btn-success"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+         {%endblock%}

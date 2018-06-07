@@ -1,0 +1,72 @@
+{%extends 'base/base.html'%}
+
+{%block content%}
+<div class="content">
+  <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">Listado de Direcciones</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="text-center">#</th>
+                            <th>Calle</th>
+                            <th>Numero</th>
+                            <th>Colonia</th>
+                            <th>Codigo Postal</th>
+                            <th>Municipio</th>
+                            <th>Estado</th>
+                          <th class="text-left">Longitud</th>
+                          <th class="text-left">Latitud</th>
+                          <th class="text-right">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for direccion in direcciones%}
+                        <tr>
+                        <td class="text-center">{{direccion.id}}</td>
+                        <td>{{direccion.calle}}</td>
+                        <td>{{direccion.numero}}</td>
+                        <td>{{direccion.colonia}}</td>
+                        <td>{{direccion.codigo_postal}}</td>
+                        <td>{{direccion.municipio}}</td>
+                        <td>{{direccion.estado}}</td>
+                        <td>{{direccion.longitud}}</td>
+                        <td>{{direccion.latitud}}</td>
+                        <td> {% if direccion.is_superuser %}Administrador{% else %}Operador{% endif %} </td>
+                          <td class="td-actions text-right">
+                            <a href="">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-link">
+                              <i class="material-icons">edit</i>
+                            </button>
+                            <a href="">
+                            <button type="button" rel="tooltip" class="btn btn-danger btn-link" >
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+                        </tr>
+                        {%endfor%}
+
+                      </tbody>
+                    </table>
+                    <div class="col-md-3 ml-auto">
+                    <a href="{%url 'add_direcciones'%}"
+                     class="btn btn-success"> Agregar Direccion</a>
+
+                   
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
+                       
+
+{%endblock%}

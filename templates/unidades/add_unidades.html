@@ -1,0 +1,68 @@
+{%extends 'base/base.html'%}
+
+
+{%block encabezado%}Agregar Unidades{%endblock%}
+{%block content%}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="green">
+                            <h4 class="title">Edit Profile</h4>
+                            <p class="category">Complete your profile</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                        
+                        <div class="col-md-12">
+                            <form action="{%url 'add_unidad'%}" method="post" >{% csrf_token %}
+                                <div class="form-group label-floating">
+                                <input type="hidden" value="{{unidad.id}}" name="id">
+                                
+                                <label class="control-label">Direccion</label>
+                                <input  id="num_medidor" name="num_medidor"  value="{{medidor.num_medidor}}" autocomplete="off" type="textarea" class="form-control">
+                                </div>
+
+                        <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                <label class="control-label">Longitud</label>
+                                <input id="acometida" class="form-control" name="acometida" type="text" value="{{medidor.acometida}}">
+								        </div> 
+                                <div class="col-md-6"> 
+                                <div class="form-group label-floating">
+                                <label class="control-label">Latitud</label>
+                                <input id="acometida" class="form-control" name="acometida" type="text" value="{{medidor.acometida}}">
+                         	
+                                </div>
+                               
+                                <div class="col-md-6">
+
+                                 <label class="control-label">Status de Unidad</label>
+                                 <input type="radio" value="">
+
+                                  <label class="control-label">Status de Comunicion</label>
+                                 <input type="radio">
+                                  <label class="control-label">Status de Conecxion</label>
+                                 <input type="radio">
+                                  </div>  </div>
+                        </div>
+
+             </div>
+                                       
+
+
+        {% if usuario %}
+              <a href="{%url 'delete_user' pk=usuario.id%}"  class="btn  btn-danger pull-right">Eliminar</a>
+        {% endif %}
+            <input id="tipob" type="submit" value="Guardar" class="btn btn-primary pull-right">
+            <div class="clearfix"></div>
+        </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+ {%endblock%}

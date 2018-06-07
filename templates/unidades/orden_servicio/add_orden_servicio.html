@@ -1,0 +1,213 @@
+{%extends 'base/base.html'%}
+
+{%block encabezado%}Agregar Orden de Servicio{%endblock%}
+{%block content%}
+
+<div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-text"><h4 class="card-title">Generar Orden de Servicio</h4></div>
+                <div class="card-body">
+                	<form action="{% url 'orden_servicio' %}" class="form-horizontal"  method="post"  id="usrform">{% csrf_token %}
+                    <div class="card-header card-header-rose card-header-text"><h4 class="card-title">Medidor</h4></div>
+                		<div class="row">
+
+                      		<input type="hidden" value="{{medidor.id}}" name="id">
+                      		<label class="col-sm-2 col-form-label">Selecciona el Numero de Medidor</label>
+                      		<div class="col-4">
+                        		<div class="form-group">
+                          			<select name="medidor" id="medidor" class="form-control" required>
+                          				<option value="0" selected="true" disabled="disabled">
+                          					Selecciona un medidor
+                          				</option>
+                          				 {% for medidor in medidores  %}
+                          				 	<option data-nummedidor="{{medidor.num_medidor}}"
+                          				 	data-numero="{{medidor.radio.direccion.numero}}"
+                          				 	data-calle="{{medidor.radio.direccion.calle}}"
+                          				 	data-colonia="{{medidor.radio.direccion.colonia}}"
+                          				 	data-codigopostal="{{medidor.radio.direccion.codigo_postal}}"
+                          				 	data-estado="{{medidor.radio.direccion.municipio.estado}}"
+                          				 	data-municipio="{{medidor.radio.direccion.municipio.nombre}}"
+                          				 	data-modelo="{{medidor.modelo}}"
+                          				 	value="{{medidor.id}}" name="medidor">
+
+                          				 	{{medidor.num_medidor}}
+                          				 </option>
+                                		{% endfor %}
+                              		</select>
+   
+                        		</div>
+                      		</div>
+                    	</div>
+                       <div class="card-header card-header-rose card-header-text"><h4 class="card-title">Dirección</h4></div>
+                    	    <div class="row">
+
+                      			<label class="col-sm-2 col-form-label">Numero</label>
+                     				<div class="col-sm-4">
+                       				 	<div class="form-group">
+                         				 	<input type="text" class="form-control" id="numero" name="numero" value="{{medidor.direccion.numero}}" required>
+                         				 </div>
+                        			</div>
+                    		</div>
+                    	<div class="row">
+                      	<label class="col-sm-2 col-form-label">Calle</label>
+                      	<div class="col-sm-4">
+                        <div class="form-group">
+                         <input type="text" class="form-control" id="calle" name="calle" value="{{medidor.direccion.calle}}" required>
+                        </div>
+                      </div>
+                    </div>
+                                         <div class="row">
+                      <label class="col-sm-2 col-form-label">Colonia</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="colonia" name="colonia" value="{{medidor.direccion.colonia}}" required>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Codigo Postal</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="codigopostal" name="codigo_postal" value="{{medidor.direccion.codigo_postal}}" required>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Estado</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="estado" name="estado" value="{{medidor.direccion.estado}}" required>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row">
+                      <label class="col-sm-2 col-form-label">Municipio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="municipio" name="municipio" value="" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-header card-header-rose card-header-text"><h4 class="card-title">Medidor</h4></div>
+                     <div class="row">
+
+                      <label class="col-sm-2 col-form-label">Modelo</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="modelo" name="modelo" value="" required>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Consumo</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="consumo" name="consumo" value="" required>
+                        </div>
+                      </div>
+                    </div>
+					<div class="row">
+						<label class="col-sm-2 col-form-label">Status de Ultima lectura</label>
+                    	<div class="col-sm-2">
+                          <select class="selectpicker" data-size="7" data-style="btn btn-info btn-round" title="Selecciona" name="status" required>
+                          	{% for ordn in orden  %}
+                            <option value="{{ordn.0}}">{{ordn.1}}</option>
+                            {% endfor %}                            
+                          </select>
+                        </div>
+                    </div>
+                 
+                    <div class="row">
+                       	<label class="col-sm-2 col-form-label">Fecha de la ultima lectura</label>
+                        <div class="form-group">
+                    		<input type="text" class="form-control datetimepicker" name="fecha" required>
+                  		</div>
+                    </div>
+                    <div class="card-header card-header-rose card-header-text"><h4 class="card-title">OS</h4></div>
+                    <div class="row">
+                    	<label class="col-sm-2 col-form-label"><p>Orde de Servicio</p></label>
+                    	
+                      <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="os" value="1" checked >Corte
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                          <label class="form-check-label"></label>
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="os" value="0"> Reconectar
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+                        </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Numero de Medidor</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="num_medidor" name="num_medidor" value="{{medidor.num_medidor}}" required >
+                        </div>
+                      </div>
+                    </div>
+
+                		
+                      <div class="row">
+                      <label class="col-sm-2 col-form-label">Descrpcion</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <textarea name="descripcion" class="form-control" form="usrform" required ></textarea>
+                      </div>
+                    </div>
+                </div>
+                    <div class="col-md-3 ml-auto">
+                    <input id="tipob" type="submit" value="Crear OS" class="btn btn-info"></div>
+                </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+ {%endblock%}
+
+ {%block scripts%}
+	<script>
+	$(function() {
+		md.initFormExtendedDatetimepickers();
+      $('#medidor').change(function(event) {
+      	 
+      	  var num_medidor= $(this).find(':selected').data('nummedidor');
+      	  var numero= $(this).find(':selected').data('numero');
+      	  var calle= $(this).find(':selected').data('calle');
+      	  var colonia= $(this).find(':selected').data('colonia');
+          var codigopostal= $(this).find(':selected').data('codigopostal');
+          var estado= $(this).find(':selected').data('estado');
+          var municipio= $(this).find(':selected').data('municipio');
+          var modelo= $(this).find(':selected').data('modelo');
+
+      	
+
+
+      	  $('#num_medidor').val(num_medidor);
+      	  $('#numero').val(numero);
+      	  $('#calle').val(calle);
+      	  $('#colonia').val(colonia);
+          $('#codigopostal').val(codigopostal);
+          $('#estado').val(estado);
+          $('#municipio').val(municipio);
+          $('#modelo').val(modelo);
+
+      	    });
+    });
+
+
+	</script>
+  {%endblock scripts%}

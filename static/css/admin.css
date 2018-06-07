@@ -1,0 +1,77 @@
+#header,
+div.breadcrumbs,
+.module h2,
+.module caption,
+.inline-group h2,
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button
+
+{
+    background-color:#1c3b73;
+    background:#c3b73;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+select,
+.vTextField{
+    border-radius: 2px;
+}
+.button:active,
+input[type="submit"]:active,
+input[type="button"]:active,
+.button:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus,
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover{
+    background-color: #132c5a;
+}
+
+.dashboard .module table th, .dashboard .module table td{
+    border-bottom-color: #455A7F;
+}
+
+a:focus,a:link, a:visited{
+	color: #3269CC;
+}
+a:hover{
+	color: #3E83FF;
+}
+
+h1,#content-related h3{
+	color: #282828;
+}
+
+#changelist .actions .button{
+	background-color: #1280B2;
+	color: #fdfdfd;
+	border-radius: 2px;
+	border: 0;
+	padding: 4px 12px; 
+	transition: all 150ms linear;
+}
+#changelist .actions .button:hover{
+	background-color: #1C3B73;
+}
+#changelist .actions{
+	color: #222222;
+}
+#changelist .actions select{
+	border-radius: 2px;
+}
+
+#changelist #toolbar form #searchbar{
+	border-radius: 2px;
+}
+
+@media screen and (max-width:992px){
+
+}

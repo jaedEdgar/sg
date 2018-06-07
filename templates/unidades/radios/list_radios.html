@@ -1,0 +1,156 @@
+{%extends 'base/base.html'%}
+{%block content%}
+<div class="content">
+  <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">list_alt</i>
+                   
+                  </div>
+                  <h4 class="card-title pull-left">Listado de Radios</h4>
+                   <button id="multiple-place" class="btn btn-success pull-right" disabled="disabled"><i class="material-icons">place</i></button>
+                </div>
+                <div class="card-body">
+                              <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                  </div>
+                  <div class="material-datatables">
+                    <table  id="datatables" class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th class="text-center" style="width: 25px;">#</th>
+                          <th class="no-sort" style="width:20px;"></th>
+                          <th style="width: 100px;">Radio ID</th>
+                          <th>Tag del Radio</th>
+                          <th>Direccion</th>
+                          <th class="text-left no-sort">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for radio in radios%}
+                        <tr>
+                        <td class="text-center" style="width: 25px;">{{radio.id}}</td>
+                         <td style="width: 25px;">
+                            <div class="form-check" >
+                              <label class="form-check-label">
+                                <input class="form-check-input listado_radio" type="checkbox" value="{{radio.id}}" data-lat="{{radio.direccion.latitud}}" data-long="{{radio.direccion.longitud}}" data-tag="{{radio.clave}}">
+                                <span class="form-check-sign">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                          </td>
+                        <td style="width: 100px;">{{radio.clave}}</td>
+                        <td>{{radio.tag_radio}}</td>
+                        <td>{{radio.direccion.calle}} {{radio.direccion.numero}}</td>
+                          <td class="td-actions text-left">
+                            <!--      
+                            <a href="{%url 'radio_detalle' pk=radio.id%}"><i class="material-icons">place</i>
+                            </a>-->
+                            
+                            <button  class="btn btn-link btn-info btn-just-icon unidad" >
+                               <i class="material-icons">search</i>
+                            </button>
+                            
+                      <button  class="btn btn-link btn-warning btn-just-icon edit" data-clave="{{radio.clave}}">
+                              <i class="material-icons">dvr</i>
+                            </button>
+                            
+                            <a href="{%url 'edit_radio' pk=radio.id%}">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-link">
+                              <i class="material-icons">edit</i>
+                            </button>
+                            <a href="{%url 'delete_radio' pk=radio.id%}">
+                            <button type="button" rel="tooltip" class="btn btn-danger btn-link" >
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+                        </tr>
+               {%endfor%}
+
+                      </tbody>
+                    </table>
+                    {%include 'unidades/radios/unidad_consumo.html'%}
+                    {%include 'unidades/radios/modal-unidades.html'%}
+                    {%include 'unidades/radios/modal-maps.html'%}
+                
+                  </div>
+                </div>
+              </div>
+            </div>
+                       
+
+{%endblock%}
+{%block scripts%}
+  <script>
+    $(function() {
+      $('.edit').click(function(event) {
+         var b = $('#modal_unidad').modal();
+          $('#radio_clave').text($(this).data('clave'));
+           console.log(b);
+      });
+
+    });
+
+    $(function() {
+     $('.unidad').click(function(event) {
+         var i = $('#unidad_modal').modal();
+          console.log(i);
+         
+      });
+    });
+
+
+$(document).ready(function() {
+    $('#datatables').DataTable({
+      "pagingType": "full_numbers",
+      "lengthMenu": [
+        [05, 10, 25, -1],
+        [05, 10, 25, "All"]
+      ],
+      // responsive: true,
+      columnDefs: [
+        { targets: 'no-sort', orderable: false }
+      ]
+    }
+    );
+
+
+    $('.card .material-datatables label');
+ 
+    $('input[type="checkbox"]').change(function(event) {
+      var cant = $('input[type="checkbox"]:checked').length;
+      if (cant>0) {
+        $('#multiple-place').removeAttr('disabled');
+      }else{
+        $('#multiple-place').attr('disabled', 'disabled');
+      }
+    });
+
+
+    $('#multiple-place').click(function(event) {
+        var check = $('.listado_radio:checked');
+        var maps = [];
+        var last_lat = "";
+        var last_long = "";
+        check.each(function(index, el) {
+          maps.push([$(el).data('tag'),$(el).data('lat'),$(el).data('long'),index+1])
+          last_lat = $(el).data('lat');
+          last_long =$(el).data('long');
+          console.log("estas en el indice:" + index);
+          console.log($(el));
+        });
+        console.log(maps,last_lat,last_long);
+      /* Act on the event */
+        myMap(maps,last_lat,last_long);
+        $("#modalMap").modal();
+        $("#modalMap").children('.modal-body')
+    });
+
+  });
+
+  </script>
+{%endblock scripts%}

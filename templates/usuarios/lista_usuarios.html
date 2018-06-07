@@ -1,0 +1,56 @@
+{%extends 'base/base.html'%}
+{%block content%}
+
+<div class="content">
+  <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">Listado de Usuarios</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="text-center">#</th>
+                          <th>Usuario</th>
+                          <th>Nombre</th>
+                          <th>Correo Electronico</th>
+                          <th class="text-left">Tipo de Usuario</th>
+                          <th class="text-right">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for usuario in usuarios%}
+                        <tr>
+                          <td class="text-center">{{usuario.id}}</td>
+                          <td>{{usuario.username}}</td>
+                          <td>{{usuario.first_name}}</td>
+                          <td>{{usuario.email}}</td>
+                          <td> {% if usuario.is_superuser %}Administrador{% else %}Operador{% endif %} </td>
+                          <td class="td-actions text-right">
+                            <a href="{%url 'edit_user' pk=usuario.id%}">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-link">
+                              <i class="material-icons">edit</i>
+                            </button>
+                            <a href="{%url 'delete_user' pk=usuario.id%}">
+                            <button type="button" rel="tooltip" class="btn btn-danger btn-link" >
+                              <i class="material-icons">close</i>
+                            </button>
+                          </td>
+                        </tr>
+                        {%endfor%}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+         {%endblock%}

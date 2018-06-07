@@ -1,0 +1,264 @@
+{%extends 'base/base.html'%}
+
+
+{%block content%}
+
+      <div class="content">
+          {% if num %}
+          <div class="container">
+            <div class="col-sm-12 ">
+            <div class="alert alert-danger">
+            <span>El medidor <b> {{num}} </b> ya existe.</span>
+            </div>
+            </div>
+          </div>
+          {% endif %}
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+
+            <div class="col-md-12">
+              <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                  <div class="card-text">
+                    <h4 class="card-title">Agregar Medidor</h4>
+                  </div>
+                </div>
+                <div class="card-body ">
+                  <form method="post" action="{%url 'add_medidor'%}" class="form-horizontal">{% csrf_token %}
+                    <div class="row">
+                      <input type="hidden" value="{{medidor.id}}" name="medidor_id" id="medidor_id">
+                      <label class="col-sm-2 col-form-label">Numero de Medidor</label>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="num_medidor" name="num_medidor"  value="{{medidor.num_medidor}}" autocomplete="off" required maxlength="20"  pattern="[0-9]{20}" title="Solo numeros. Tamaño máximo: 20">
+                          <p style="display:none;"  class="text-danger" id="existe">El Numero de medidor ya existe</p>
+                 
+                        </div>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Modelo de Medidor</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="modelo" name="modelo" value="{{medidor.modelo}}" required >
+                        </div>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Punto de Medidor</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="punto" name="punto" value="{{medidor.punto}}" required >
+                        </div>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Tag de Medidor</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="tag_medidor" name="tag_medidor" value="{{medidor.tag}}" required >
+                        </div>
+                      </div>
+                    <label class="col-sm-2 col-form-label">Version FW de Medidor</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="version_fw" name="version_fw" value="{{medidor.version_fw}}" required >
+                        </div>
+                      </div>
+                      <label class="col-sm-2 col-form-label">ID de PAC</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="clave_pac" name="clave_pac" value="{{medidor.clave_pac}}" required >
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                      <div class="card ">
+                      <div class="card-header card-header-rose card-header-text">
+                  <div class="card-text">
+                    <h4 class="card-title">Asignar Radio</h4>
+                  </div>
+                </div>
+                <div class="card-body ">
+                       <div class="row">
+                      <label class="col-sm-2 col-form-label">Id de Radios</label>
+                      <div class="col-4">
+                        <div class="form-group">
+                              <select name="radio" id="radios" class="form-control" required >
+                                <option value="0" selected="true" disabled="disabled">
+                                Selecciona un radio
+                              </option>
+                                {% for radio in radios  %}
+                                  <option data-modelo="{{radio.modelo}}"
+                                  data-version="{{radio.version_fw}}"
+                                  data-protocolo="{{radio.protocolo}}" 
+                                  data-latitud="{{radio.direccion.latitud}}"
+                                  data-calle="{{radio.direccion.calle}}"
+                                  data-numero="{{radio.direccion.numero}}"
+                                  data-colonia="{{radio.direccion.colonia}}"
+                                  data-codigopostal="{{radio.direccion.codigo_postal}}"
+                                  data-estado="{{radio.direccion.municipio.estado}}"
+                                  data-municipio="{{radio.direccion.municipio.nombre}}"
+                                  data-longitud="{{radio.direccion.longitud}}"
+                                  value="{{radio.id}}" 
+                                  {% if radio.id == medidor.radio.id %}
+                                    selected="selected"
+                                  {% endif %}
+                                  >
+                                  {{radio.clave}}
+                                </option>
+                                {% endfor %}
+                              </select>
+                        </div>
+                      </div>                     
+                      <label class="col-sm-2 col-form-label">Modelo de Radio</label>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="r_modelo" name="r_modelo" value="{{medidor.radio.modelo}}" readonly required>
+                        </div>
+                      </div>  
+                      <label class="col-sm-2 col-form-label">Version FW de Radio</label>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="r_version" name="r_version" value="{{medidor.radio.version_fw}}" readonly required>
+                        </div>
+                      </div>               
+                      <label class="col-sm-2 col-form-label">Protocolo de radio</label>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="r_protocolo" name="r_protocolo" value="{{medidor.radio.protocolo}}" readonly required>
+                        </div>
+                      </div>
+                    
+                   </div>
+                   <div class="row">
+                    <div class="card-body text-center">
+                      <h4 class="card-title pl-3">Dirección
+                
+              </h4>
+                      <div class="row">
+                      <label class="col-sm-2 col-form-label">Calle</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="calle" name=""  value="{{medidor.radio.direccion.calle}}" disabled="disabled" >
+                           </div>
+                      </div>
+                  
+                      <label class="col-sm-2 col-form-label">Numero</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="numero" name="" value="{{medidor.radio.direccion.numero}}" disabled="disabled">
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Colonia</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="colonia" name="" value="{{medidor.radio.direccion.colonia}}" disabled="disabled">
+                        </div>
+                      </div>
+                    
+                      <label class="col-sm-2 col-form-label">Codigo Postal</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="codigopostal" name="" value="{{medidor.radio.direccion.codigo_postal}}" disabled="disabled">
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Estado</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="estado" name="" value="{{medidor.radio.direccion.municipio.get_estado_display}}" disabled="disabled">
+                        </div>
+                      </div>
+           
+                      <label class="col-sm-2 col-form-label">Municipio</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="municipio" name="" value="{{medidor.radio.direccion.municipio.nombre}}"  disabled="disabled">
+                        </div>
+                      </div>
+                    </div>
+                     <div class="row">
+                      <label class="col-sm-2 col-form-label">Longitud</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="longitud" name="" value="{{medidor.radio.direccion.longitud}}" disabled="disabled">
+                        </div>
+                      </div>
+                 
+                      <label class="col-sm-2 col-form-label">Latitud</label>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="latitud" name="" value="{{medidor.radio.direccion.latitud}}" readonly disabled="disabled">
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+
+                    </div>
+                    <div class="col-md-3 ml-auto">
+                    <input id="tipob" type="submit" value="Guardar" class="btn btn-success"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+ {%endblock%}
+ {%block scripts%}
+  <script>
+    $(function() {
+      $("#num_medidor").focusout(function(event) {
+             validar_medidor($(this).val());
+        });
+
+      $('#radios').change(function(event) {
+
+          var modelo= $(this).find(':selected').data('modelo');
+          var version= $(this).find(':selected').data('version');
+          var protocolo= $(this).find(':selected').data('protocolo');
+          var latitud= $(this).find(':selected').data('latitud');
+          var calle= $(this).find(':selected').data('calle');
+          var numero= $(this).find(':selected').data('numero');
+          var colonia= $(this).find(':selected').data('colonia');
+          var codigopostal= $(this).find(':selected').data('codigopostal');
+          var estado= $(this).find(':selected').data('estado');
+          var municipio= $(this).find(':selected').data('municipio');
+          var longitud= $(this).find(':selected').data('longitud');
+
+          
+          $('#r_modelo').val(modelo);
+          $('#r_version').val(version);
+          $('#r_protocolo').val(protocolo);
+          $('#latitud').val(latitud);
+          $('#calle').val(calle);
+          $('#numero').val(numero);
+          $('#colonia').val(colonia);
+          $('#codigopostal').val(codigopostal);
+          $('#estado').val(estado);
+          $('#municipio').val(municipio);
+          $('#longitud').val(longitud);
+
+
+
+
+      });
+    });
+    function validar_medidor(num_medidor){
+      $.ajax({
+        url: '/api/medidor/'+num_medidor,
+      })
+      .done(function() {
+        console.log("success");
+
+        $('#existe').css("display", "block");
+          
+      })
+      .fail(function() {
+        console.log("error");
+        $('#existe').css("display", "none");
+      });
+      
+    }
+
+  </script>
+ {%endblock scripts%}
